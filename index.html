@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventures Auto Center | Alta Performance em Sinop - MT</title>
+    <meta name="description"
+        content="Especialistas em Troca de Óleo, Pneus, Freios, Suspensão, Alinhamento e Balanceamento em Sinop, Mato Grosso. Agende sua revisão.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,400&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+    <style>
+        /* ==========================================================================
+           Design System: Tema "Fiery Performance" (Dark Mode + Laranja Fogo)
+           ========================================================================== */
+        :root {
+            --clr-base-dark: #050505;
+            --clr-surface: #0a0a0a;
+            --clr-surface-light: #141414;
+            --clr-border: #1a1a1a;
+
+            --clr-primary: #ff4500;
+            --clr-primary-dark: #cc3700;
+            --clr-primary-glow: rgba(255, 69, 0, 0.4);
+
+            --clr-text-bright: #ffffff;
+            --clr-text-muted: #a1a1aa;
+
+            --font-headings: 'Oswald', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+
+            --fs-hero: clamp(2.5rem, 6vw + 1rem, 5rem);
+            --fs-h2: clamp(2rem, 4vw + 1rem, 3.5rem);
+            --fs-body: clamp(1rem, 1.2vw + 0.8rem, 1.15rem);
+
+            --space-sm: 0.75rem;
+            --space-md: 1.5rem;
+            --space-lg: 3rem;
+            --space-xl: 6rem;
+
+            --radius-soft: 6px;
+            --transition-snappy: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ==========================================================================
+           Reset e Estrutura Global
+           ========================================================================== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+            /* Ajuste para o tamanho maior da navegação */
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--clr-base-dark);
+            color: var(--clr-text-bright);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-headings);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Animação Contínua para elementos da interface (Movimento) */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* ==========================================================================
+           Componentes UI: Botões de Alta Conversão com Efeito de Brilho
+           ========================================================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: var(--radius-soft);
+            text-decoration: none;
+            transition: var(--transition-snappy);
+            cursor: pointer;
+            border: 2px solid transparent;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--clr-primary-dark), var(--clr-primary));
+            color: #ffffff;
+            box-shadow: 0 4px 20px var(--clr-primary-glow);
+        }
+
+        /* Efeito de Feixe de Luz passando pelo botão */
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: skewX(-25deg);
+            transition: none;
+        }
+
+        .btn-primary:hover::before {
+            left: 150%;
+            transition: left 0.7s ease;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 69, 0, 0.6);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--clr-primary);
+            color: var(--clr-primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--clr-primary);
+            color: #ffffff;
+            box-shadow: 0 4px 15px var(--clr-primary-glow);
+        }
+
+        /* ==========================================================================
+           Header & Navegação Sticky (Logo Maior e Proporcional)
+           ========================================================================== */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 69, 0, 0.2);
+            z-index: 1000;
+            padding: 0.5rem 0;
+            /* Menos padding para compensar a logo maior */
+            transition: padding 0.3s ease, background-color 0.3s ease;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            height: 70px;
+            /* Aumentado de 50px para 70px */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform-origin: left center;
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.05);
+        }
+
+        .main-nav {
+            display: none;
+        }
+
+        /* ==========================================================================
+           Hero Section: Impacto Visual Imersivo
+           ========================================================================== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 6rem;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            right: -10%;
+            bottom: -10%;
+            background: url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80') center/cover no-repeat;
+            z-index: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(5, 5, 5, 0.7) 0%, rgba(5, 5, 5, 0.95) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 850px;
+        }
+
+        .location-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 69, 0, 0.1);
+            color: var(--clr-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 69, 0, 0.3);
+            margin-bottom: var(--space-md);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            animation: float 4s ease-in-out infinite;
+            /* Efeito de flutuação */
+        }
+
+        .hero h1 {
+            font-size: var(--fs-hero);
+            line-height: 1.1;
+            margin-bottom: var(--space-md);
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero h1 span {
+            color: var(--clr-primary);
+        }
+
+        .hero-subtitle {
+            font-size: var(--fs-body);
+            color: var(--clr-text-muted);
+            margin-bottom: var(--space-lg);
+            max-width: 600px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* ==========================================================================
+           Seção Sobre Nós (Com Animação Parallax na Imagem)
+           ========================================================================== */
+        .section-padding {
+            padding: var(--space-xl) 0;
+        }
+
+        .about-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            border: 1px solid var(--clr-border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            height: 500px;
+            /* Altura fixa para permitir o efeito parallax da imagem dentro */
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 120%;
+            /* Maior que o container para o parallax funcionar */
+            object-fit: cover;
+            display: block;
+            opacity: 0.85;
+            /* A transição aqui lida apenas com o hover, o scroll é gerenciado pelo GSAP */
+            transition: opacity 0.4s ease;
+        }
+
+        .about-image:hover img {
+            opacity: 1;
+        }
+
+        .about-content h2 {
+            font-size: var(--fs-h2);
+            margin-bottom: var(--space-sm);
+        }
+
+        .about-content h2 span {
+            color: var(--clr-primary);
+        }
+
+        .about-content p {
+            color: var(--clr-text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .lead-text {
+            font-size: 1.25rem !important;
+            color: var(--clr-text-bright) !important;
+            font-weight: 500;
+            border-left: 3px solid var(--clr-primary);
+            padding-left: 1rem;
+            margin-bottom: 2rem !important;
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--clr-border);
+        }
+
+        .stat-num {
+            display: block;
+            font-family: var(--font-headings);
+            font-size: 2.5rem;
+            color: var(--clr-primary);
+            line-height: 1;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            color: var(--clr-text-bright);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================================
+           Seção de Serviços: Grid Premium com Imagens
+           ========================================================================== */
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-title {
+            font-size: var(--fs-h2);
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-title span {
+            color: var(--clr-primary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background-color: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-soft);
+            transition: var(--transition-snappy);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 69, 0, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            background-color: var(--clr-surface-light);
+            z-index: 2;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+            background-color: #000;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s ease;
+        }
+
+        .service-card:hover.card-image img {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, var(--clr-surface) 0%, transparent 100%);
+            transition: var(--transition-snappy);
+        }
+
+        .service-card:hover.card-image::after {
+            background: linear-gradient(to top, var(--clr-surface-light) 0%, transparent 100%);
+        }
+
+        .card-content {
+            padding: 1.5rem 2rem 2.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 1.5px;
+        }
+
+        .card-content h3::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--clr-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--clr-primary);
+            flex-shrink: 0;
+        }
+
+        .card-content p {
+            color: var(--clr-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           Seção de Localização e Rota GPS
+           ========================================================================== */
+        .location-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            background-color: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .location-info {
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .location-info h3 {
+            font-size: 1.8rem;
+            color: var(--clr-text-bright);
+            margin-bottom: 1rem;
+        }
+
+        .location-info p {
+            color: var(--clr-text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .location-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .location-features span {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .location-features span::before {
+            content: '✔';
+            color: var(--clr-primary);
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .map-container {
+            width: 100%;
+            min-height: 400px;
+            background-color: #111;
+            position: relative;
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: invert(90%) hue-rotate(180deg) brightness(100%) contrast(105%);
+        }
+
+        /* ==========================================================================
+           Footer & Informações de Contato Locais (Layout Organizado)
+           ========================================================================== */
+        .site-footer {
+            background-color: #020202;
+            padding: var(--space-xl) 0 var(--space-md);
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-lg);
+        }
+
+        .footer-logo {
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 1.2rem;
+            display: block;
+        }
+
+        .footer-brand p {
+            color: var(--clr-text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 1.5rem;
+            color: var(--clr-text-bright);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .social-link svg {
+            stroke: var(--clr-primary);
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .social-link:hover {
+            color: var(--clr-primary);
+        }
+
+        .social-link:hover svg {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .footer-heading {
+            font-family: var(--font-headings);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--clr-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.8rem;
+            color: var(--clr-text-muted);
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .highlight-link {
+            color: var(--clr-text-bright);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .highlight-link:hover {
+            color: var(--clr-primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: var(--space-xl);
+            padding-top: var(--space-md);
+            border-top: 1px solid #111;
+            color: #444;
+            font-size: 0.85rem;
+        }
+
+        /* ==========================================================================
+           Responsividade Desktop
+           ========================================================================== */
+        @media (min-width: 900px) {
+            .site-header {
+                padding: 0.2rem 0;
+            }
+
+            .brand-logo {
+                height: 75px;
+            }
+
+            .main-nav {
+                display: flex;
+                gap: 2rem;
+            }
+
+            .main-nav a {
+                color: var(--clr-text-bright);
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                transition: color 0.3s;
+                position: relative;
+            }
+
+            .main-nav a::after {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                width: 0%;
+                height: 2px;
+                background-color: var(--clr-primary);
+                transition: width 0.3s ease;
+            }
+
+            .main-nav a:hover {
+                color: var(--clr-primary);
+            }
+
+            .main-nav a:hover::after {
+                width: 100%;
+            }
+
+            .hero-actions {
+                flex-direction: row;
+            }
+
+            .about-wrapper {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .location-wrapper {
+                grid-template-columns: 1fr 1.5fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1.5fr 1.5fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        /* Classes utilitárias ocultas para animação inicial do GSAP */
+        .gs-reveal,
+        .gs-fade-up,
+        .gs-stagger {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .gs-reveal,
+            .gs-fade-up,
+            .gs-stagger {
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header" id="header" role="banner">
+        <div class="container nav-wrapper">
+            <div class="brand">
+                <a href="#home" aria-label="Página Inicial da Ventures Auto Center">
+                    <img src="imagens/ventures logo.jpg" alt="Logo Ventures Auto Center" class="brand-logo">
+                </a>
+            </div>
+            <nav class="main-nav" aria-label="Navegação Principal">
+                <a href="#home">Início</a>
+                <a href="#sobre">Sobre Nós</a>
+                <a href="#servicos">Especialidades</a>
+                <a href="#localizacao">Como Chegar</a>
+            </nav>
+            <a href="https://wa.me/5566992717487" class="btn btn-outline" target="_blank">Agendar Revisão</a>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <section class="hero" id="home" aria-labelledby="hero-heading">
+            <div class="hero-bg"></div>
+            <div class="container hero-content">
+                <div class="location-badge gs-reveal">
+                    📍 Sinop - MT
+                </div>
+
+                <h1 id="hero-heading" class="gs-reveal">Performance e <span>Segurança</span> para o seu Veículo</h1>
+                <p class="hero-subtitle gs-reveal">Diagnósticos de precisão e serviços de manutenção premium. Trazemos a
+                    excelência e agilidade que o seu carro exige para rodar sem preocupações.</p>
+
+                <div class="hero-actions gs-reveal">
+                    <a href="https://wa.me/5566992717487?text=Olá,%20gostaria%20de%20agendar%20um%20serviço."
+                        class="btn btn-primary" target="_blank">Falar com Mecânico (WhatsApp)</a>
+                    <a href="#servicos" class="btn btn-outline">Ver Serviços Completos</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about section-padding" id="sobre" aria-labelledby="about-heading">
+            <div class="container about-wrapper">
+                <div class="about-image gs-reveal">
+                    <img src="https://images.unsplash.com/photo-1613214149922-f1809c99b414?auto=format&fit=crop&q=80&w=800"
+                        alt="Mecânico inspecionando motor de alta performance">
+                </div>
+                <div class="about-content gs-fade-up">
+                    <h2 id="about-heading" class="section-title">Sobre <span>Nós</span></h2>
+                    <p class="lead-text">Referência em diagnóstico e performance automotiva no coração de Sinop, Mato
+                        Grosso.</p>
+                    <p>A <strong>Ventures Auto Center</strong> nasceu da paixão pela mecânica de precisão e do
+                        compromisso em oferecer um padrão de serviço premium na nossa região. Nossa infraestrutura foi
+                        desenhada para atender as mais altas exigências, seja para seu carro de passeio, linha esportiva
+                        ou frota de utilitários pesados.</p>
+                    <p>Nós não fazemos apenas consertos; entregamos soluções mecânicas com absoluta transparência.
+                        Utilizamos equipamentos de ponta para geometria, diagnóstico eletrônico e reparos estruturais,
+                        assegurando que o investimento feito no seu veículo retorne em forma de estabilidade, potência e
+                        máxima segurança nas estradas.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-num">100%</span>
+                            <span class="stat-label">Transparência</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-num">Alta</span>
+                            <span class="stat-label">Performance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="services section-padding" id="servicos" aria-labelledby="services-heading">
+            <div class="container">
+                <div class="section-header gs-fade-up">
+                    <h2 id="services-heading" class="section-title">Nossas <span>Especialidades</span></h2>
+                    <p style="color: var(--clr-text-muted);">Serviço técnico completo para manter seu veículo no ápice
+                        do funcionamento.</p>
+                </div>
+
+                <div class="services-grid">
+                    <article class="service-card gs-stagger">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1625047509168-a71c6f5d22d4?auto=format&fit=crop&q=80&w=600"
+                                alt="Mecânico fazendo troca de óleo">
+                        </div>
+                        <div class="card-content">
+                            <h3>Troca de Óleo</h3>
+                            <p>Lubrificantes de alta performance e substituição de filtros para maximizar a vida útil e
+                                a potência do seu motor.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card gs-stagger">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=600"
+                                alt="Pneus empilhados em estoque">
+                        </div>
+                        <div class="card-content">
+                            <h3>Pneus</h3>
+                            <p>Troca e comércio de pneus com as melhores marcas do mercado, garantindo aderência e
+                                segurança extrema.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card gs-stagger">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&q=80&w=600"
+                                alt="Detalhe do sistema de freios de um carro">
+                        </div>
+                        <div class="card-content">
+                            <h3>Freios</h3>
+                            <p>Manutenção preventiva rigorosa, troca de pastilhas e discos para segurança absoluta em
+                                qualquer condição de via.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card gs-stagger">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1632823462924-f7b5a83b2767?auto=format&fit=crop&q=80&w=600"
+                                alt="Visão da suspensão inferior do carro">
+                        </div>
+                        <div class="card-content">
+                            <h3>Suspensão</h3>
+                            <p>Correções e revisões em amortecedores e molas, fundamentais para a estabilidade e
+                                conforto em ruas e rodovias.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card gs-stagger">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1605810730811-4da8db816ed4?auto=format&fit=crop&q=80&w=600"
+                                alt="Carro em processo de alinhamento">
+                        </div>
+                        <div class="card-content">
+                            <h3>Alinhamento</h3>
+                            <p>Equipamentos de alta tecnologia para geometria exata, evitando desgaste irregular e
+                                puxões na direção.</p>
+                        </div>
+                    </article>
+
+                    <article class="service-card gs-stagger">
+                        <div class="card-image">
+                            <img src="https://images.unsplash.com/photo-1599256614486-db936082dc0a?auto=format&fit=crop&q=80&w=600"
+                                alt="Mecânico com roda de carro">
+                        </div>
+                        <div class="card-content">
+                            <h3>Balanceamento</h3>
+                            <p>Ajuste preciso do conjunto roda/pneu para anular vibrações no volante em altas
+                                velocidades.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="location-route section-padding" id="localizacao" aria-labelledby="location-heading">
+            <div class="container">
+                <div class="section-header gs-fade-up">
+                    <h2 id="location-heading" class="section-title">Como <span>Chegar</span></h2>
+                    <p style="color: var(--clr-text-muted);">Facilidade de acesso e infraestrutura pronta para receber
+                        seu veículo.</p>
+                </div>
+
+                <div class="location-wrapper gs-fade-up">
+                    <div class="location-info">
+                        <h3>Ventures Auto Center</h3>
+                        <p>📍 Av. Senador Jonas Pinheiro, Número 1639<br>Jardim das Oliveiras, Sinop - MT<br>CEP:
+                            78552-457</p>
+
+                        <div class="location-features">
+                            <span>Amplo espaço para utilitários</span>
+                            <span>Atendimento ágil</span>
+                            <span>Segurança e transparência</span>
+                        </div>
+
+                        <a href="https://www.google.com/maps/place/Ventures+Auto+Center/data=!4m2!3m1!1s0x0:0x1ba7f6d282e1f992?sa=X&ved=1t:2428&ictx=111"
+                            class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="margin-right: 8px;">
+                                <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                            </svg>
+                            Traçar Rota no GPS
+                        </a>
+                    </div>
+
+                    <div class="map-container">
+                        <iframe
+                            src="https://maps.google.com/maps?q=Ventures+Auto+Center,+Sinop+-+MT&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer" id="contato">
+        <div class="container footer-grid">
+            <div class="footer-brand gs-fade-up">
+                <img src="imagens/ventures logo.jpg" alt="Logo Ventures Auto Center" class="footer-logo">
+                <p>A oficina de confiança definitiva em Sinop. Transparência técnica e agilidade como prioridade.</p>
+                <a href="https://instagram.com/venturesautocenter" class="social-link" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    @Venturesautocenter
+                </a>
+            </div>
+
+            <address class="footer-contact gs-fade-up" style="font-style: normal;">
+                <h4 class="footer-heading">Contato Rápido</h4>
+                <p>Telefone / WhatsApp: <a href="https://wa.me/5566992717487" class="highlight-link"
+                        style="margin-left: 8px;">66 99271-7487</a></p>
+
+                <p style="margin-top: 1.5rem; font-weight: 700; color: #fff;">Dúvidas Técnicas?</p>
+                <p>Ligue e fale direto com nossa equipe.</p>
+            </address>
+
+            <div class="footer-contact gs-fade-up">
+                <h4 class="footer-heading">Horário de Funcionamento</h4>
+                <p style="color: #fff; font-weight: 600; margin-bottom: 0.5rem;">⏰ Segunda à Sexta</p>
+                <p>Manhã: 07:30h às 11:00h</p>
+                <p>Tarde: 13:00h às 18:00h</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Ventures Auto Center. Desenvolvido para Alta Conversão.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Inicialização do Motor GSAP
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Fallback: garante a visibilidade se o script engasgar
+            gsap.set(".gs-reveal,.gs-fade-up,.gs-stagger", { visibility: "visible" });
+
+            // 1. Animação de Entrada (Hero)
+            const heroTl = gsap.timeline();
+            heroTl.fromTo(".gs-reveal",
+                { y: 30, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: "power3.out",
+                    delay: 0.2
+                }
+            );
+
+            // 1.1 Parallax no fundo da seção Hero
+            gsap.to(".hero-bg", {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".hero",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // 2. Animação de Fade Up (Elementos de Texto)
+            gsap.utils.toArray('.gs-fade-up').forEach(block => {
+                gsap.fromTo(block,
+                    { y: 50, opacity: 0 },
+                    {
+                        scrollTrigger: {
+                            trigger: block,
+                            start: "top 85%",
+                        },
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: "power2.out"
+                    }
+                );
+            });
+
+            // 3. Efeito Cascata Dinâmico para a Grade de Serviços
+            gsap.fromTo(".gs-stagger",
+                { y: 40, opacity: 0, scale: 0.95 },
+                {
+                    scrollTrigger: {
+                        trigger: ".services-grid",
+                        start: "top 80%",
+                    },
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.6,
+                    stagger: 0.15,
+                    ease: "back.out(1.2)"
+                }
+            );
+
+            // 4. Efeito Parallax na imagem do "Sobre Nós"
+            gsap.to(".about-image img", {
+                yPercent: -15,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".about-wrapper",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // 5. Header Sticky Comportamental e Dinâmico
+            const header = document.getElementById("header");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    header.style.padding = "0.2rem 0";
+                    header.style.boxShadow = "0 4px 20px rgba(0,0,0,0.8)";
+                    header.style.backgroundColor = "rgba(2, 2, 2, 0.98)";
+                } else {
+                    header.style.padding = "0.8rem 0";
+                    header.style.boxShadow = "none";
+                    header.style.backgroundColor = "rgba(5, 5, 5, 0.95)";
+                }
+            }, { passive: true });
+        });
+    </script>
+</body>
+
+</html>
